@@ -1,6 +1,6 @@
 # go-otel-echo-demo
 
-Simple Golang REST API for Observability.
+Simple Golang (Echo) REST API for Observability.
 
 ## Tech Stack
 - `Go`
