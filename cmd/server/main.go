@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -49,10 +50,14 @@ func main() {
 	e.Use(otelecho.Middleware(serviceName))
 
 	e.GET("/healthz", func(c echo.Context) error {
+		fmt.Println("hit /healthz")
+
 		return c.JSON(http.StatusOK, map[string]any{"ok": true})
 	})
 
 	e.GET("/ping", func(c echo.Context) error {
+		fmt.Println("hit /ping")
+
 		// This endpoint will produce a trace span automatically via middleware
 		return c.JSON(http.StatusOK, map[string]any{
 			"message": "pong",
@@ -62,6 +67,7 @@ func main() {
 
 	// Endpoint to simulate "end-to-end" work (child spans + random error)
 	e.GET("/work", func(c echo.Context) error {
+		fmt.Println("hit /work")
 		ctx := c.Request().Context()
 		tr := otel.Tracer("echo-otel-demo")
 
