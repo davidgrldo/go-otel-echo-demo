@@ -126,6 +126,7 @@ func initTracerProvider(ctx context.Context, serviceName, otlpEndpoint, environm
 	exp, err := otlptracegrpc.New(ctx,
 		otlptracegrpc.WithEndpoint(otlpEndpoint),
 		otlptracegrpc.WithDialOption(grpc.WithTransportCredentials(insecure.NewCredentials())),
+		otlptracegrpc.WithInsecure(),
 	)
 	if err != nil {
 		return nil, err
