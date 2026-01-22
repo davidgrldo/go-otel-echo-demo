@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"sync"
 	"time"
 
@@ -219,6 +220,12 @@ func main() {
 		sp.SetStatus(codes.Ok, "ok")
 
 		return c.JSON(http.StatusOK, map[string]any{"ok": true})
+	})
+
+	e.GET("/assets/faqih", func(c echo.Context) error {
+		imgPath := filepath.Join("resources", "assets", "faqih.png")
+		c.Response().Header().Set(echo.HeaderContentType, "image/png")
+		return c.File(imgPath)
 	})
 
 	// Graceful shutdown
